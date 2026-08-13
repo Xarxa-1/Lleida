@@ -1,3 +1,5 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="LleidaTV" group-title="Locals", Lleida TV
-https://liveingesta318.cdnmedia.tv/lleidatvlive/smil:live.smil/playlist.m3u8?DVR
+#EXTVLCOPT:http-referrer=https://ott.lleidatv.cat/
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+https://liveingesta318.cdnmedia.tv/lleidatvlive/live-1500/chunklist.m3u8?DVR|Referer=https://ott.lleidatv.cat/&User-Agent=Mozilla/5.0
