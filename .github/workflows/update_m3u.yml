@@ -2,9 +2,12 @@ name: Actualitzar Playlist M3U
 
 on:
   schedule:
-    # Executa cada dia a les 04:00 UTC
     - cron: '0 4 * * *'
-  workflow_dispatch: # Permet executar-ho manualment des de GitHub
+  workflow_dispatch:
+
+# Activem permisos d'escriptura per poder fer commit/push
+permissions:
+  contents: write
 
 jobs:
   update-m3u:
@@ -17,7 +20,7 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Instal·lar dependències i Playwright
         run: |
@@ -31,8 +34,12 @@ jobs:
 
       - name: Desar i fer push dels canvis a GitHub
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add playlist.m3u
-          git diff-index --quiet HEAD || git commit -m "Auto-update: playlist.m3u"
-          git push
+          if git status --porcelain | grep -q playlist.m3u; then
+            git commit -m "Auto-update: playlist.m3u"
+            git push
+          else
+            echo "No hi ha canvis a playlist.m3u"
+          fi
