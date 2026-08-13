@@ -2,10 +2,11 @@ name: Actualitzar Playlist M3U
 
 on:
   schedule:
+    # Executa cada dia a les 04:00 UTC
     - cron: '0 4 * * *'
-  workflow_dispatch:
+  workflow_dispatch: # Permet l'execució manual des de la pestanya Actions
 
-# Activem permisos d'escriptura per poder fer commit/push
+# Opcional i necessari: atorgar permisos d'escriptura al bot de GitHub Actions
 permissions:
   contents: write
 
@@ -41,5 +42,5 @@ jobs:
             git commit -m "Auto-update: playlist.m3u"
             git push
           else
-            echo "No hi ha canvis a playlist.m3u"
+            echo "No s'han detectat canvis a playlist.m3u"
           fi
